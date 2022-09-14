@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Live Football World Cup Score Board
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Dev diary
 
-## Available Scripts
+To begin with, I've chosen CRA as base to start as quick as possible, considering the project is simple and
+according to the instructions that's how we want to keep it. However for a real project I'd chosen NextJS.
 
-In the project directory, you can run:
+Similar thing happens about JS. I'm trying to keep it simple, but in a production project with a team I would use Typescript.
 
-### `npm start`
+I'm assuming the desired result is just frontend and the instructions mention no REST API, no WS and no MS, so my plan is to write 
+the logic to start and end matches, and update the scores, in the frontend using a custom hook to handle the logic, a React context for the state and some simple UI to trigger the hook functions.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### I missed a key detail
 
-### `npm test`
+I went straight forward to work on the test and missed the detail about making it into a library. On Sunday I realized about it...
+I tried to make it into a library, but honestly I never had to do that in React yet, so it went a bit wrong. I first tried to do it first as just a simple package but using TS, no bundler involved, but I run into many issues, specially for setting the test environment.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Then I tried Rollup, but still no good results. In the end I'm delivering a project with CRA, no library. Sorry about that.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Testing hooks went wrong
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Another thing that gave me quite a headache was testing hooks. I didn't manage to do it in the end.
+I'm used to e2e testing on the frontend, because I find it more useful (specially when using TS, as you can rely on the typings system) but I though creating an e2e test would be too much and that maybe won't be the best startegy for TDD, as these tests are complete and robust but slow to run. It would be better to just go with Jest and React Testing Library.
 
-### `npm run eject`
+I was wrong too... Couldn't find a way to properly test the custom hook. I tried to go with an integration test that will take many and the components and the hook, but I still ran into issues when it comes to rendering the hook in the test environment. Seeing I was running out of time, I decided to skip the TDD, at least in terms of implementing the automatic tests.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+I defined the main usecases and expected results and went full manual testing.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Actual implementation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This part went good, however I know it wasn't the core purpose of the test. I struggled a little bit at the beginning about how to interact 
+with the logic with no backend, as it felt unrealistic to have a user changing this kind of data directly. However in the end I came up with 
+the custom hook strategy to try to decouple as much the component and the frontend from the actual logic, so it could be triggered from anywhere, like from the responses coming from a backend or directly from the UI as I did, without the need of changing the code.
 
-## Learn More
+### Summary
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The overall test didn't go as good as I would like it. It took more time than I was expecting and it made me realize that maybe I'm 
+a bit rusty on the coding side with React, probably because the main roles I've been lately are more high level and architecture related and 
+less about being in touch with the actual code. I also feel my React experience is getting a bit outdated in terms of toolchain and testing.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+I know this would be an issue for the current role I'm applying, but I'd be keen to explore other options, roles with maybe less responsability or that need less experience so I have the chance to warm up and get it track again, if you have such job positions open.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
